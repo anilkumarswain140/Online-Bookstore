@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Appservice } from 'src/app/service/appservice.service';
-import { books } from 'src/models/books';
+import { books } from 'src/app/models/books';
 
 @Component({
   selector: 'app-dashboard',
