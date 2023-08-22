@@ -1,0 +1,35 @@
+<div class="login-container">
+    <div class="login-content">
+        <mat-toolbar class="login-toolbar" color="primary">LOGIN</mat-toolbar>
+        <mat-card>
+
+            <form [formGroup]="registerForm" #formDirective="ngForm" (ngSubmit)="login(registerForm.value)">
+                <mat-form-field [style.width.%]="100">
+                    <mat-icon matPrefix>email</mat-icon>
+                    <input autofocus type="email" matInput placeholder="Email *" formControlName="email">
+                    <mat-error *ngIf="!registerForm.get('email')?.valid">
+                        please enter valid email
+                    </mat-error>
+
+                </mat-form-field>
+
+
+                <mat-form-field [style.width.%]="100">
+                    <mat-icon matPrefix>lock_outline</mat-icon>
+                    <input type="password" autocomplete="false" matInput placeholder="Password *"
+                        formControlName="password">
+                    <mat-hint>Choose a password of at least eight characters, one uppercase letter and one
+                        number</mat-hint>
+                    <mat-error *ngIf="!registerForm.get('Password')?.valid">
+                        please enter valid password
+                    </mat-error>
+                </mat-form-field>
+
+                <hr>
+                <div class=" socialMediaFlex">
+                    <button style="width:50%" type="submit" mat-raised-button color="primary">Submit</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>
