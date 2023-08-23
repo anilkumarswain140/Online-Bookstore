@@ -8,13 +8,13 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+const jwt = require('jsonwebtoken');
 
 mongoose.connect("mongodb+srv://sunilkumarswain89:Anilks123@cluster0.rn3icmf.mongodb.net/onlinebookstore?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true } )
 
 .then(() => console.log('Connected Successfully'))
 
 .catch((err) => { console.error(err); });
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

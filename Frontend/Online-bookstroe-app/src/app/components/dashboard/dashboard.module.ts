@@ -5,7 +5,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     DashboardRoutingModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    FlexLayoutModule,
+    MatIconModule
   ]
 })
 export class DashboardModule { }

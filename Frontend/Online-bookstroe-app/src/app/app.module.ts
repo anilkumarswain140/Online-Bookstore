@@ -14,7 +14,15 @@ import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { Appservice } from './service/appservice.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FormsModule } from '@angular/forms';
+import { httpInterceptor } from './service/http.interceptor';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
+
+
 
 
 
@@ -26,11 +34,13 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     MatToolbarModule,
     MatButtonModule,
@@ -39,9 +49,14 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatListModule,
+    MatSidenavModule
+    
 
   ],
-  providers: [Appservice],
+  providers: [Appservice,{provide : HTTP_INTERCEPTORS, useClass: httpInterceptor, multi : true}],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

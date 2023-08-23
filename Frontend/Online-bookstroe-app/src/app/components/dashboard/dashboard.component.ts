@@ -14,9 +14,9 @@ export class DashboardComponent implements OnInit {
     // {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
     // {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
     // {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-    { text: 'One', cols: 1, rows: 1, color: 'lightblue' },
-    { text: 'Two', cols: 1, rows: 1, color: 'lightgreen' },
-    { text: 'Three', cols: 1, rows: 1, color: 'lightpink' },
+    { text: 'One', cols: 3, rows: 1, color: 'lightblue' },
+    { text: 'Two', cols: 1, rows: 2, color: 'lightgreen' },
+   
 
   ];
 
@@ -33,6 +33,13 @@ export class DashboardComponent implements OnInit {
       
       this.books = res;
       console.log(this.books);
+    })
+  }
+
+  search(){
+    this.appservice.serach("ddd").subscribe(result=>{
+      console.log(result);
+      
     })
   }
 }

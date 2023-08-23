@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { books } from 'src/app/models/books';
 import { users } from 'src/app/models/users';
 
@@ -8,19 +8,31 @@ import { users } from 'src/app/models/users';
   providedIn: 'root'
 })
 export class Appservice {
-
+ 
+  baseUrl = "http://localhost:3000/";
+  token : Subject<any> = new Subject();
+  headers: HttpHeaders = new HttpHeaders();
+  
   constructor(private http : HttpClient) { }
 
 
   registerUser(body : users): Observable<any>{
-    return this.http.post("http://localhost:3000/register",body);
+    return this.http.post(this.baseUrl+"register",body,{headers: this.headers});
   }
 
   login(body : users): Observable<any>{
-    return this.http.post("http://localhost:3000/login",body);
+    return this.http.post(this.baseUrl+"login",body);
   }
 
   getAllBooks(): Observable<any>{
-    return this.http.get("http://localhost:3000/books");
+    return this.http.get(this.baseUrl+"books/?p=1");
+  }
+
+  getAuthToken() {
+    return this.token;
+  }
+
+  serach(searchText : any){
+    return this.http.get(this.baseUrl+"search/"+searchText)
   }
 }

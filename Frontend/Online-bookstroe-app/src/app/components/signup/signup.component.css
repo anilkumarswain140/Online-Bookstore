@@ -38,3 +38,14 @@
     padding-top: 6%;
     padding-bottom: 5%;
   }
+  .login-hint{
+    display: flex;
+    justify-content: center;
+    padding: 9px;
+  }
+
+  .login{
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: large;
+  }

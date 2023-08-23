@@ -1,23 +1,48 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Book store app</span>
-    <span class="example-spacer" ></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
+<div class="eaton mat-typography" style="overflow-x:hidden;" fxFlexFill cdkScrollable>
+  <mat-toolbar color="primary" class="main-header mat-elevation-z4" [class.hidden]="toggleSearch">
+    <mat-toolbar-row style="padding: 0 5px;">
+      <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
       </button>
-      <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
+      <div style="padding:8px 0 0 10px; flex:1;">
+        <div class="mat-title" style="margin-bottom:2px;">Online Book Store</div>
+        <!-- <div class="mat-subheading-2" style="line-height:.6rem;">
+           find your own way
+        </div> -->
+      </div>
+      <button mat-icon-button (click)="openSearch()">
+        <mat-icon>search</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
+      <span class="material-icons">shopping_cart</span>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>person_pin</mat-icon>
       </button>
-    </mat-menu>
-  </mat-toolbar-row>
-</mat-toolbar>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>verified_user</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>subject</mat-icon>
+          <span>Your order</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-toolbar class="search-block mat-elevation-z4" [class.active]="toggleSearch">
+    <mat-toolbar-row style="padding: 0 5px;">
+      <button class="search-icon" mat-icon-button disabled>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input class="search-control" type="text" placeholder="Search" [(ngModel)]="searchText" #searchbar />
+      <button mat-icon-button (click)="searchClose()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

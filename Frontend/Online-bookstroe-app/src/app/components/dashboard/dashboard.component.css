@@ -6,3 +6,28 @@
     width: 15rem;
     height: 203px;
 }
+
+.example-container {
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid #555;
+  }
+
+  .pagination {
+    display: inline-block;
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  .pagination a.active {
+    background-color: #000000;
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}

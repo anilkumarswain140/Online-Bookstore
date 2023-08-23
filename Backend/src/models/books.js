@@ -5,12 +5,12 @@ bookSchema = new Schema( {
 	
 	unique_id: Number,
 	title: String,
-	authers : String,
+	authers : [{type:String}],
     shortDescription : String,
     thumbnailUrl : String,
-    category :String,
+    category : [{type:String}],
     rating : Number,
-    review : String,
+    review : [{type:String}],
     price : Number
 
 
