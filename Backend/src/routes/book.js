@@ -1,106 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var Book = require('../models/books');
-const auth = require('../auth/auth');
+const bookController = require('../controllers/books')
 
-
-router.post("/addbook", async (req, res) => {
-    console.log(req.body.authers);
-    const verifyed = auth.verifyToken(req.headers.authorization);
-    if (verifyed == undefined || verifyed == null || verifyed == "") {
-        return res.status(401).json({ error: "unatherized" })
-    }
-    else {
-        const user = await Book.create({
-            title: req.body.title,
-            authers: req.body.authers,
-            shortDescription: req.body.shortDescription,
-            thumbnailUrl: req.body.thumbnailUrl,
-            category: req.body.category,
-            rating: req.body.rating,
-            review: req.body.review,
-            price: req.body.price
-        });
-
-        return res.status(200).json(user);
-    }
-});
-
-router.get("/books", async (req, res) => {
-    const pageOptions = {
-        page: parseInt(req.query.page, 10) || 0,
-        limit: parseInt(req.query.limit, 6) || 6
-    }
-    const verifyed = auth.verifyToken(req.headers.authorization);
-    if (verifyed == undefined || verifyed == null || verifyed == "") {
-        return res.status(401).json({ error: "unatherized" })
-    }
-    else {
-        const Books = await Book.find()
-        .skip(pageOptions.page * pageOptions.limit)
-        .limit(pageOptions.limit)
-        .then(function (book, err) {
-            res.status(200).json(book);
-        });
-    }
-})
-
-
-router.post("/removebook", async (req, res) => {
-    const verifyed = auth.verifyToken(req.headers.authorization);
-    if (verifyed == undefined || verifyed == null || verifyed == "") {
-        return res.status(401).json({ error: "unatherized" })
-    }
-    else {
-        const query = { _id: req.body._id }
-        const result = await Book.findOneAndRemove(query);
-        console.log(result);
-        if (result.deletedCount === 1) {
-            res.status(200).json({ result });
-        }
-        else {
-            res.status(400).json({ error: "bad request" })
-        }
-    }
-})
-
-
-router.get("/search/:key", async (req, res) => {
-
-    // Book.createIndex({title :"text",authers :"text"});
-    const records = await Book.find(
-        {
-            "$or":[
-                {title:{$regex:req.params.key, $options: 'i'}},
-                {authers:{$regex:req.params.key}}
-            ]
-        });
-    res.status(200).json({records});
-})
-
-
-
-router.get("/filter",async (req,res) =>{
-    console.log(req.query.min);
-    let sort = req.query.sort;
-    req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
-    let sortBy = {};
-		if (sort[1]) {
-			sortBy[sort[0]] = sort[1];
-		} else {
-			sortBy[sort[0]] = "asc";
-		}
-    const records = await Book.find({
-        // "rating":{"$gt": req.query.from}},{"rating":{"$lte":req.query.to},
-        "$or":
-         [
-          {"$and":[{"price":{"$gt": req.query.min}},{"price":{"$lte":req.query.max}}]},
-          
-         ]
-      }).sort(sortBy)
-
-      res.status(200).json({records});
-})
-
+router.post("/addbook", bookController.addBook);
+router.get("/books", bookController.getBooks);
+router.post("/removebook", bookController.deleteBook);
+router.get("/search/:key", bookController.searchBook);
+router.get("/filter", bookController.filter);
+router.put("/updatebook", bookController.updateBookById)
 module.exports = router;
 
