@@ -6,5 +6,6 @@ export interface books{
     category :string,
     rating : Number,
     review : string,
-    price : Number
+    price : Number,
+    _id : string;
 }

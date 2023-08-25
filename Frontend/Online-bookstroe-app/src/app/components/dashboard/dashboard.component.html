@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<!-- <div class="dashboard-container">
   <button mat-button><mat-icon>mic</mat-icon> Start Recording</button>
 
 
@@ -7,17 +7,22 @@
       <mat-card class="example-card">
         <mat-card-header>
           <mat-card-title>{{tile.title | slice:0:20 }}</mat-card-title>
-          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          <mat-card-subtitle>
+            <ul *ngFor="let auther of tile.authers; let i=index" class="authers">
+              <li><span *ngIf="i<2">{{auther}}</span></li>
+            </ul>
+          </mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image class="book-thumbnail" [src]="tile.thumbnailUrl" alt="Photo of a Shiba Inu">
         <mat-card-content>
           <p>
             {{tile.shortDescription | slice:0:30}}
           </p>
+          <p><span>Price : {{tile.price}}</span></p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Price </button><span>{{tile.price}}</span>
-          <button mat-button>SHARE</button>
+          <button mat-button>Add To Cart </button>
+          <button mat-button>Details</button>
         </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
@@ -34,4 +39,88 @@
     <a>&raquo;</a>
   </div>
 
+</div> -->
+
+<div class="dashboard-container">
+  <div class="content">
+    <button mat-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="filter-button">
+      Filter
+      <mat-icon>filter_alt</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="reset()">
+        <mat-icon>settings_backup_restore</mat-icon>
+        <span>Reset</span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="priceMenu">
+        <mat-icon>attach_money</mat-icon>
+        <span>Price</span>
+        <mat-menu class="date-range-menu" #priceMenu="matMenu">
+          <span>Price range</span> <button class="filter-action" (click)="filterBooks()">filter</button>
+          <div fxLayout="row">
+            <div fxLayout="column" (click)="preventClosing($event);">
+              <b>From</b>
+              <input type="text" class="price-range" [(ngModel)]="min">
+            </div>
+            <div fxLayout="column" (click)="preventClosing($event)">
+              <b>To</b>
+              <input type="text" class="price-range" [(ngModel)]="max">
+              <!-- <mat-calendar></mat-calendar> -->
+            </div>
+          </div>
+        </mat-menu>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menu1">
+        <mat-icon>category</mat-icon>
+        <span>category</span>
+        <mat-menu #menu1="matMenu">
+          <button mat-menu-item *ngFor="let item of categories">
+            <mat-icon>play_arrow</mat-icon>
+            <span (click)="getSelectedcategory(item)">{{item}}</span>
+          </button>
+        </mat-menu>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="ratingMenu">
+        <mat-icon>stars</mat-icon>
+        <span>Ratings</span>
+        <mat-menu #ratingMenu="matMenu">
+          <button mat-menu-item *ngFor="let item of ratings" (click)="ratingSelected(item)">
+            <mat-icon>play_arrow</mat-icon>
+            <span>{{item}}</span>
+          </button>
+        </mat-menu>
+      </button>
+    </mat-menu>
+    <div fxLayout="row wrap" fxLayoutGap="16px grid" *ngIf="books.length > 0">
+      <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" *ngFor="let tile of books" class="books-container">
+        <mat-card class="mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title>{{tile.title | slice:0:20}}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image class="book-thumbnail" [src]="tile.thumbnailUrl">
+          <mat-card-content>
+            <p>
+              T {{tile.shortDescription | slice:0:30}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="addToCart(tile._id)">Add To Cart</button>
+            <button mat-button>Book details</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="books.length == 0">
+    <span >No records founds</span>
+    <button (click)="nextPage(1)">Back to main page</button>
+  </div>
+
+  <div class="pagination" *ngIf="books.length > 0">
+    <a>&laquo;</a>
+    <span *ngFor="let page of pagination">
+      <a [ngClass]="page == pagenumber ? 'active' : ''" (click)="nextPage(page)">{{page}} </a>
+    </span>
+    <a>&raquo;</a>
+  </div>
 </div>

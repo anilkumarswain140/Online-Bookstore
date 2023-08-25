@@ -6,7 +6,7 @@ const register = async (req, res, next) => {
         username: req.body.username,
         password: req.body.password
     });
-
+    if(!user){return res.status(500).json({error:"unable to create a user"});}
     return res.status(200).json(user);
 };
 

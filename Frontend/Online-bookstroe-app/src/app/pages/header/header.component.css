@@ -22,3 +22,10 @@ header, .main-header, .search-block {
   outline: none;
   padding-left: 10px;
 }
+/* .basic-container {
+  padding: 1px;
+} */
+
+.cart-btn{
+  background-color: transparent;
+}

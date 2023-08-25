@@ -20,19 +20,37 @@ export class Appservice {
     return this.http.post(this.baseUrl+"register",body,{headers: this.headers});
   }
 
-  login(body : users): Observable<any>{
+  login(body : any): Observable<any>{
     return this.http.post(this.baseUrl+"login",body);
   }
 
-  getAllBooks(): Observable<any>{
-    return this.http.get(this.baseUrl+"books/?p=1");
+  getAllBooks(pageNumber : any): Observable<any>{
+    return this.http.get(this.baseUrl+"books/?page="+pageNumber);
   }
 
   getAuthToken() {
     return this.token;
   }
 
-  serach(searchText : any){
-    return this.http.get(this.baseUrl+"search/"+searchText)
+  serach(searchText : any): Observable<any>{
+    return this.http.get(this.baseUrl+"books/search/"+searchText)
+  }
+
+  filterBooks(queryString : string): Observable<any>{
+    return this.http.get(this.baseUrl+"books/filter?"+queryString)
+  }
+
+  addToCart(userId : string, body : any): Observable<any>{
+    return this.http.post(this.baseUrl+userId,body);
+  }
+
+  getAllCartItems(userId : string) : Observable<any>{
+    return this.http.get(this.baseUrl+userId);
+  }
+
+  removeCartItem(userId : string, body : any) : Observable<any>{
+    console.log(userId, body);
+    
+    return this.http.delete(this.baseUrl+userId,body);
   }
 }
