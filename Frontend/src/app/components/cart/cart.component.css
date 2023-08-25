@@ -1,0 +1,21 @@
+.basic-container{
+    /* margin-top: 5%; */
+}
+.remove-item{
+    margin-left: 1rem;
+    background-color: red;
+    margin-left: 1rem;
+    background-color: #d9290c;
+    color: white;
+}
+.buy-item{
+    padding: 7px;
+    background: black;
+    color: white;
+}
+
+.container{
+    margin-top: 14%;
+    display: flex;
+    justify-content: center;
+  }

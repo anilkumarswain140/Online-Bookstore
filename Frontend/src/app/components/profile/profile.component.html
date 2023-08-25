@@ -1,0 +1,19 @@
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" class="container">
+    <mat-card fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{appstate.userData[0].username}}</mat-card-title>
+        <mat-card-subtitle>{{appstate.userData[0].email}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+            Thanks for joining us
+           </p>
+           <p>
+            User Id : {{appstate.userData[0].id}}
+            </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

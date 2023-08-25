@@ -1,0 +1,23 @@
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px" class="container">
+    <mat-card fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" class="example-card" *ngFor="let item of cartItems">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{item.producttitle}}</mat-card-title>
+            <mat-card-subtitle>{{item.quantity}}</mat-card-subtitle>
+        </mat-card-header>
+        <img style="height:100%; width: 100%;" [src]="item.productimage" />
+        <mat-card-content>
+            <p>
+                continue to buy now
+            </p>
+            <p>
+                product Id : {{appstate.userData[0].id}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button class="buy-item"> Buy Product</button>
+            <button (click)="removeCartItem(item.productId)"
+                class="remove-item"><mat-icon>restore_from_trash</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+</div>

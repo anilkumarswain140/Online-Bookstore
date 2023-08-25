@@ -1,7 +1,8 @@
 const { isValidObjectId } = require("mongoose");
 var Cart  = require("../models/cart");
 var User = require('../models/user');
-
+var Book = require('../models/books')
+var mongoose = require('mongoose');
 exports.addItemToCart = async (req, res) => {
   let userId = req.params.userId;
   console.log(req.params.userId,req.body.productId);
@@ -15,23 +16,35 @@ exports.addItemToCart = async (req, res) => {
     return res.status(400).send({ status: false, message: "Invalid product" });
 
   let cart = await Cart.findOne({ userId: userId });
-
+ 
   if (cart) {
     let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+    let _id ={ _id: new mongoose.Types.ObjectId(req.body.productId) };
+    const doc = await Book.findById(_id);
 
+    console.log("product details",doc);
+    let body = {
+      productId : req.body.productId,
+      producttitle : doc.title,
+      productimage : doc.thumbnailUrl,
+      productprice : doc.price,
+      quantity: 1,
+      rating: doc.rating
+      
+    }
     if (itemIndex > -1) {
       let productItem = cart.products[itemIndex];
       productItem.quantity += 1;
       cart.products[itemIndex] = productItem;
     } else {
-      cart.products.push({ productId: productId, quantity: 1 });
+      cart.products.push(body);
     }
     cart = await cart.save();
     return res.status(200).send({ status: true, cartItems: cart });
   } else {
     const newCart = await Cart.create({
       userId,
-      products: [{ productId: productId, quantity: 1 }],
+      products: [body],
     });
 
     return res.status(201).send({ status: true, cartItems: newCart });

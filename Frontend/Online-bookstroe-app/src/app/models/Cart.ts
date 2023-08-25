@@ -1,8 +1,0 @@
-export interface Cart{
-        productId: Number,
-        quantity: Number,
-        // name: string,
-        // price: Number,
-        total: Number,
-        id : string
-}

@@ -1,0 +1,29 @@
+
+<h1 align="center">All Books</h1>
+
+<table class="table">
+	<thead class="thead-light">
+		<tr>
+			<th scope="col">title</th>
+			<th scope="col">price</th>
+			<th scope="col">description</th>
+			<th scope="col">category</th>
+            <th scope="col">rating</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let book of books">
+			<td>{{book.title}}</td>
+			<td>{{book.price}}</td>
+			<td>{{book.shortDescription}}</td>
+			<td>{{book.category}}</td>
+			<td>{{book.rating}}</td>
+
+
+    
+			<td>
+				<button type="button" class="btn btn-danger" (click)="deleteCustomer(book._id)">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -140,11 +140,31 @@ const updateBookById = async (req, res, next) => {
     }
 }
 
+const findBookById = async (req, res, next) => {
+    const query = { _id: req.params.id };
+    try {
+        if (!filter) {
+            return res.status(400).json({ error: 'null id found' });
+        }
+
+        const doc = await Book.findById(query);
+        console.log(doc);
+        if (!doc) {
+            return res.status(404).json({ error: 'record not updated' });
+        }
+        res.status(200).json({ doc });
+    } catch (error) {
+        res.status(500).json({ error: 'Could not find record' });
+    }
+}
+
+
 module.exports = {
     addBook,
     getBooks,
     deleteBook,
     searchBook,
     filter,
-    updateBookById
+    updateBookById,
+    findBookById
 }
