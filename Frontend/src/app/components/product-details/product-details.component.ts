@@ -29,7 +29,6 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.router.snapshot.params['id'];
     this.getProductById();
-    console.log("deatails pae", this.bookdetails[0]);
     this.bookdetails[0].review.forEach((element: any) => {
 
       this.reviews['review'] = element;
@@ -40,7 +39,6 @@ export class ProductDetailsComponent implements OnInit {
 
 
   getProductById() {
-    console.log(this.id);
 
   }
 

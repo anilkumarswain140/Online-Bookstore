@@ -55,5 +55,15 @@ export class GetAllBooks {
     static readonly type = '[App] increase item'
     constructor(public userId: any,public body : any){}
   } 
+
+  export class addBook{
+    static readonly type = '[App] add book'
+    constructor(public body : any){}
+  } 
+
+  export class placeOrder{
+    static readonly type = '[App] place order'
+    constructor(public userId : any,public body : any){}
+  } 
   
   

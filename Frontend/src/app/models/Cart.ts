@@ -9,4 +9,5 @@ export interface Cart{
         producttitle: string;
         rating : string;
         productprice : number
+        subtotal : number
 }

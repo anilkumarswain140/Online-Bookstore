@@ -2,6 +2,7 @@ import { Selector } from "@ngxs/store";
 import { AppState, AppStateModel } from "../state/app.state";
 import { books } from "src/app/models/books";
 import { Cart } from "src/app/models/Cart";
+import { order } from "src/app/models/order";
 
 
 export class AppSelectors {
@@ -24,5 +25,10 @@ export class AppSelectors {
   @Selector([AppState])
   static getBookDetails(state: AppStateModel): books[] {
     return state.productsdetails;
+  }
+
+  @Selector([AppState])
+  static getOrders(state: AppStateModel): order[] {
+    return state.orderItems;
   }
 }

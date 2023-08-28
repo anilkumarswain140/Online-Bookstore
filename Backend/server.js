@@ -38,10 +38,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var index = require('./src/routes/index');
 var book = require('./src/routes/book');
 var cart = require('./src/routes/cart');
+var order = require('./src/routes/order');
+
 
 app.use('/', index);
 app.use('/',book);
 app.use('/',cart);
+app.use('/',order);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

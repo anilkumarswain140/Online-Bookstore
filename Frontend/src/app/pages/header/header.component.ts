@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { Store } from '@ngxs/store';
@@ -12,7 +12,7 @@ import { AppStateModel } from 'src/app/store/state/app.state';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Output() mySearch: EventEmitter<string> = new EventEmitter;
   @ViewChild('searchbar') searchbar!: ElementRef;
   searchText = '';
@@ -24,7 +24,10 @@ export class HeaderComponent {
   @SelectSnapshot(AppSelectors.getCatItems) cartItems!: Cart[];
 
 
-  constructor(private store: Store, public router : Router) { }
+  constructor(private store: Store, public router: Router) { }
+  ngOnInit(): void {
+
+  }
   openSearch() {
     this.toggleSearch = true;
     this.searchbar.nativeElement.focus();
@@ -32,7 +35,9 @@ export class HeaderComponent {
   searchClose() {
     this.searchText = '';
     this.toggleSearch = false;
-    this.store.dispatch(new GetAllBooks(0))
+    if (this.appstate.role !== 'admin') {
+      this.store.dispatch(new GetAllBooks(0))
+    }
   }
 
   search(event: any) {
@@ -40,11 +45,10 @@ export class HeaderComponent {
   }
 
   onQueryPass() {
-    console.log(this.searchText);
     if (this.searchText) {
       this.store.dispatch(new SearchBooks(this.searchText))
     }
-    else{
+    else if (this.appstate.role !== 'admin') {
       this.store.dispatch(new GetAllBooks(0))
     }
   }
@@ -59,7 +63,7 @@ export class HeaderComponent {
       name: 'Dashboard',
       icon: 'home'
     },
-    
+
     {
       path: 'profile',
       name: 'profile',
@@ -70,16 +74,16 @@ export class HeaderComponent {
 
 
 
-  toggleMenu(){
+  toggleMenu() {
     this.isOpen = !this.isOpen
   }
 
-  closeEmitterHandler(){
+  closeEmitterHandler() {
     this.isOpen = !this.isOpen
   }
 
-  logout(){
-   this.store.dispatch(new setAuth());
+  logout() {
+    this.store.dispatch(new setAuth());
     this.router.navigateByUrl('/login');
   }
 }

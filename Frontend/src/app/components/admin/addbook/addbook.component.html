@@ -1,39 +1,56 @@
+<div class="login-container">
+    <div class="login-content">
+        <mat-toolbar class="login-toolbar" color="primary">Add a book</mat-toolbar>
+        <mat-card>
 
-<h1 align="center">Create Books</h1>
-<div class="col-md-4 m-5 pb-5">
-  <form [formGroup]="createbookForm" (ngSubmit)="createBook()">
-    <div class="form-group">
-      <label>book Name : </label>
-      <input type="text" class="form-control" formControlName="name" placeholder="Enter book name">
-      <span class="warning" *ngIf="createbookForm.controls['name'].errors?.required">
-        *book name is required </span>
-    </div>
-    <div class="form-group">
-      <label>book Address : </label>
-      <input type="text" class="form-control" formControlName="address" placeholder="Enter book address">
-    </div>
+            <form [formGroup]="createbookForm" #formDirective="ngForm" (ngSubmit)="createBook(createbookForm.value)">
+                <mat-form-field [style.width.%]="100">
+                    <input autofocus type="email" matInput placeholder="title *" formControlName="title">
+                    <mat-error *ngIf="!createbookForm.get('title')?.valid">
+                        please enter valid title
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field [style.width.%]="100">
+                    <input autofocus type=" text" matInput placeholder="authers *" formControlName="authers">
+                    <mat-error *ngIf="!createbookForm.get('authers')?.valid">
+                        please enter valid authers name
+                    </mat-error>
+                </mat-form-field>
 
-    <div class="form-group">
-      <label>book Phone : </label>
-      <input type="text" class="form-control" formControlName="phone" placeholder="Enter book phone">
-    </div>
 
-    <div class="form-group">
-      <label>book Age : </label>
-      <input type="number" class="form-control" formControlName="age" placeholder="Enter book address">
-      <span class="warning" *ngIf="createbookForm.controls['age'].errors?.max || createbookForm.controls['age'].errors?.min || createbookForm.controls['age'].errors?.patters ">
-        *Invalid age </span>
-    </div>
+                <mat-form-field [style.width.%]="100">
+                    <input  autocomplete="false" matInput placeholder="shortDescription *"
+                        formControlName="shortDescription">
+                    <mat-error *ngIf="!createbookForm.get('shortDescription')?.valid">
+                        please enter valid description
+                    </mat-error>
+                </mat-form-field>
 
-    <div class="form-group">
-      <label>book email : </label>
-      <input type="text" class="form-control" formControlName="email" placeholder="Enter book email">
-      <span class="warning" *ngIf="createbookForm.controls['email'].errors?.email">
-        *Please enter a valid email </span>
+                <mat-form-field [style.width.%]="100">
+                    <input autocomplete="false" matInput placeholder="category *" formControlName="category">
+                    <mat-error *ngIf="!createbookForm.get('category')?.valid">
+                        please enter valid category
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field [style.width.%]="100">
+                    <input autocomplete="false" matInput placeholder="price *" formControlName="price">
+                    <mat-error *ngIf="!createbookForm.get('price')?.valid">
+                        please enter valid price
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field [style.width.%]="100">
+                    <input autocomplete="false" matInput placeholder="thumbnailUrl *" formControlName="thumbnailUrl">
+
+                    <mat-error *ngIf="!createbookForm.get('thumbnailUrl')?.valid">
+                        please enter valid thumbnailUrl
+                    </mat-error>
+                </mat-form-field>
+                <hr>
+                <div class=" socialMediaFlex">
+                    <button style="width:50%" type="submit" mat-raised-button color="primary"
+                        [disabled]="!createbookForm.valid">Submit</button>
+                </div>
+            </form>
+        </mat-card>
     </div>
-    <button type="reset" class="btn btn-warning mr-1">Reset</button>
-    <button type="submit" [disabled]="!createbookForm.valid" class="btn btn-primary">Insert book</button>
-  </form>
 </div>
-
-{{createbookForm.value | json}}

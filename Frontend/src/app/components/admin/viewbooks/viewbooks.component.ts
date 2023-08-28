@@ -17,7 +17,6 @@ export class ViewbooksComponent implements OnInit {
   @SelectSnapshot(AppSelectors.getBooks ) books!: books[];
 
   ngOnInit(): void {
-    console.log(this.books);
     
   }
   deleteCustomer(id:any){

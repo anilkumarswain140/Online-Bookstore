@@ -1,0 +1,189 @@
+
+.btnGroup {
+    display:flex;
+    height:36px;
+    line-height:36px;
+    font-size:12px;
+    color:#444444;
+    font-weight:800;
+  }
+  
+  .orderHistoryBtn {
+    /* flex:1; */
+    padding:0px 10px 0px 10px;
+    background:red;
+    cursor:pointer;
+  }
+  
+  .paymentOptionBtn {
+    /* flex:1; */
+    padding:0px 10px 0px 10px;
+    background:green;
+    cursor:pointer;
+  }
+  
+  .orderHistoryTitle {
+    background:#ffffff;
+  }
+  
+  .container {
+    display:flex;
+    padding:20px;
+    background:#ffffff;
+    font-size:22px;
+    font-weight:bold;
+  }
+  
+  .tableTitleContainer {
+    display:flex;
+    height:32px;
+    line-height:32px;
+    padding:0px 20px 0px 20px;
+    background:#ffffff;
+    font-size:12px;
+    font-weight:800;
+    color:#999999;
+  }
+  .dateTitle {
+    /* flex:1; */
+    /* background:blue; */
+    background:#f6f6f6;
+    padding:0px 25px 0px 10px;
+    width:57px;
+  }
+  .descriptionTitle {
+    flex:1;
+    /* background:green; */
+    background:#f6f6f6;
+    padding:0px 25px 0px 10px;
+  }
+  
+  .paymentTitle {
+    /* flex:1; */
+    width:58px;
+    /* background:purple; */
+    background:#f6f6f6;
+    padding:0px 10px 0px 10px;
+  }
+  
+  
+  .tableListItemsContainer {
+    display:flex;
+    padding:0px 20px 0px 20px;
+    background:#ffffff;
+    font-size:14px;
+  }
+  
+  .date {
+    /* flex:1; */
+    width:57px;
+    /* background:lightblue; */
+    background:#ffffff;
+    padding:15px 25px 15px 10px;
+    color:#444444;
+    border-bottom:1px solid #dddddd;
+  }
+  .description {
+    flex:1;
+    /* background:lightgreen; */
+    background:#ffffff;
+    padding:15px 25px 15px 10px;
+    border-bottom:1px solid #dddddd;
+  }
+  
+  .title {
+    font-weight:bold;
+    background:#ffffff;
+  }
+  
+  .type {
+    background:#ffffff;
+  }
+  
+  .payment {
+    /* flex:1; */
+    width:58px;
+    /* background:yellow; */
+    background:#ffffff;
+    padding:15px 10px 15px 10px;
+    color:#444444;
+    border-bottom:1px solid #dddddd;
+  }
+  
+
+  
+  .addFirstCardMessage {
+    background:#ffffff;
+    padding:0px 20px 0px 20px;
+    color:#444444;
+    font-size:14px;
+  }
+  
+
+  
+  .addCardContainer {
+    display:flex;
+    background:#ffffff;
+    padding:0px 20px 0px 20px;
+  }
+  
+    .creditCardContainer {
+      display:flex;
+      background:#ffffff;
+      height:48px;
+      line-height:48px;
+      padding:0px 20px 10px 20px;
+  
+    }
+  
+    .cardIcon {
+      /* flex:1; */
+      /* background:red; */
+      background:#f6f6f6;
+    }
+  
+    .cardPlaceholder {
+      background:grey;
+      width:28px;
+      height:18px;
+      margin:15px 10px 0px 20px;
+    }
+  
+    .cardInfo {
+      flex:1;
+      /* background:green; */
+      background:#f6f6f6;
+      font-size:14px;
+      color:#444444;
+    }
+  
+    .editBtnContainer {
+      /* flex:1; */
+      /* background:orange; */
+      background:#f6f6f6;
+      padding:0px 20px 0px 20px;
+      font-size:12px;
+      font-weight:800;
+    }
+  
+    .editBtn {
+      cursor:pointer;
+      background:#f6f6f6;
+    }
+    
+  
+  
+  
+  
+  .addCardBtn {
+    flex:1;
+    background:#ffffff;
+    height:64px;
+    border:2px dashed #999999;
+    text-align:center;
+    line-height:64px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  

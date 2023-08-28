@@ -21,7 +21,9 @@ export const APP_DEFAULT_STATE: AppStateModel = {
   isInitialGetMyLocation: false,
   addressData: [],
   productsdetails: [],
-  role: ''
+  role: '',
+  subtotal: 0,
+  orderItems: []
 }
 
 export function logoutPlugin(state: any, action: any, next: any): void {

@@ -36,11 +36,11 @@ export class Appservice {
   }
 
   serach(searchText : any): Observable<any>{
-    return this.http.get(this.baseUrl+"books/search/"+searchText)
+    return this.http.get(this.baseUrl+"books/search/"+searchText);
   }
 
   filterBooks(queryString : string): Observable<any>{
-    return this.http.get(this.baseUrl+"books/filter?"+queryString)
+    return this.http.get(this.baseUrl+"books/filter?"+queryString);
   }
 
   addToCart(userId : string, body : any): Observable<any>{
@@ -52,8 +52,6 @@ export class Appservice {
   }
 
   removeCartItem(userId : string, body : any) : Observable<any>{
-    console.log(userId, body);
-    
     return this.http.delete(this.baseUrl+"cart/"+userId,{body: body});
   }
 
@@ -62,10 +60,18 @@ export class Appservice {
   }
 
   decreaseItemFromCart(userId: any , body : any) : Observable<any>{
-    return this.http.patch(this.baseUrl+"cart/deceasequantity/"+userId,body)
+    return this.http.patch(this.baseUrl+"cart/deceasequantity/"+userId,body);
   }
 
   increaseItemFromCart(userId: any , body : any) : Observable<any>{
-    return this.http.patch(this.baseUrl+"cart/inceasequantity/"+userId,body)
+    return this.http.patch(this.baseUrl+"cart/inceasequantity/"+userId,body);
+  }
+
+  addBook(body : any): Observable<any>{
+    return this.http.post(this.baseUrl+"books/",body);
+  }
+
+  placeOrder(userId: any, body : any): Observable<any>{
+    return this.http.post(this.baseUrl+"order/"+userId,body);
   }
 }

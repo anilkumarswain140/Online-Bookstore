@@ -2,71 +2,88 @@ const { isValidObjectId } = require("mongoose");
 var Cart = require("../models/cart");
 var User = require('../models/user');
 var Book = require('../models/books')
+const auth = require('../auth/auth');
 var mongoose = require('mongoose');
+
 exports.addItemToCart = async (req, res) => {
-  let userId = req.params.userId;
-  console.log(req.params.userId,req.body.productId);
-  let user = await User.exists({ _id: userId });
-  let body;
-  if (!userId || !isValidObjectId(userId) || !user)
-    return res.status(400).send({ status: false, message: "Invalid user ID" });
-
-  let productId = req.body.productId;
-  if (!productId)
-    return res.status(400).send({ status: false, message: "Invalid product" });
-
-  let cart = await Cart.findOne({ userId: userId });
-  let _id ={ _id: new mongoose.Types.ObjectId(req.body.productId) };
-  const doc = await Book.findById(_id);
-
-  console.log("product details",doc);
-   body = {
-    productId : req.body.productId,
-    producttitle : doc.title,
-    productimage : doc.thumbnailUrl,
-    productprice : doc.price,
-    quantity: 1,
-    rating: doc.rating,
-    total : doc.price
-    
+  const verifyed = auth.verifyToken(req.headers.authorization);
+  if (verifyed == undefined || verifyed == null || verifyed == "") {
+    return res.status(401).json({ error: "unatherized" })
   }
-  if (cart) {
-    console.log(cart);
-    let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-    
-    if (itemIndex > -1) {
-      let productItem = cart.products[itemIndex];
-      productItem.quantity += 1;
-      cart.products[itemIndex] = productItem;
-    } else {
-      cart.products.push(body);
-    }
-    cart = await cart.save();
-    return res.status(200).send({ status: true, cartItems: cart });
-  } else {
-    const newCart = await Cart.create({
-      userId,
-      products: [body],
-    });
+  else {
+    let userId = req.params.userId;
+    console.log(req.params.userId, req.body.productId);
+    let user = await User.exists({ _id: userId });
+    let body;
+    if (!userId || !isValidObjectId(userId) || !user)
+      return res.status(400).send({ status: false, message: "Invalid user ID" });
 
-    return res.status(201).send({ status: true, cartItems: newCart });
+    let productId = req.body.productId;
+    if (!productId)
+      return res.status(400).send({ status: false, message: "Invalid product" });
+
+    let cart = await Cart.findOne({ userId: userId });
+    if(!cart){return res.status(400).send({tatus: false, message: "cart not found"})}
+    let _id = { _id: new mongoose.Types.ObjectId(req.body.productId) };
+    const doc = await Book.findById(_id);
+    if(!doc){return res.status(400).send({tatus: false, message: "product not found"})}
+
+    console.log("product details", doc);
+    body = {
+      productId: req.body.productId,
+      producttitle: doc.title,
+      productimage: doc.thumbnailUrl,
+      productprice: doc.price,
+      quantity: 1,
+      rating: doc.rating,
+      total: doc.price
+
+    }
+    if (cart) {
+      console.log(cart);
+      let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+
+      if (itemIndex > -1) {
+        let productItem = cart.products[itemIndex];
+        productItem.quantity += 1;
+        cart.products[itemIndex] = productItem;
+      } else {
+        cart.products.push(body);
+      }
+      cart = await cart.save();
+      return res.status(200).send({ status: true, cartItems: cart });
+    } else {
+      const newCart = await Cart.create({
+        userId,
+        products: [body],
+      });
+
+      return res.status(201).send({ status: true, cartItems: newCart });
+    }
   }
 };
 
 exports.getCart = async (req, res) => {
-  let userId = req.params.userId;
-  let user = await User.exists({ _id: userId });
+  const verifyed = auth.verifyToken(req.headers.authorization);
+  if (verifyed == undefined || verifyed == null || verifyed == "") {
+    return res.status(401).json({ error: "unatherized" })
+  }
+  else {
+    let userId = req.params.userId;
+    let user = await User.exists({ _id: userId });
 
-  if (!userId || !isValidObjectId(userId) || !user)
-    return res.status(400).send({ status: false, message: "Invalid user ID" });
+    if (!userId || !isValidObjectId(userId) || !user)
+      return res.status(400).send({ status: false, message: "Invalid user ID" });
 
-  let cart = await Cart.findOne({ userId: userId });
-  if (!cart)
-    return res
-      .status(404)
-      .send({ status: false, message: "Cart not found for this user" });
+    let cart = await Cart.findOne({ userId: userId });
 
-  res.status(200).send({ status: true, cart: cart });
+    if (!cart)
+      return res
+        .status(404)
+        .send({ status: false, message: "Cart not found for this user" });
+
+    res.status(200).send({ status: true, cart: cart });
+  }
 };
 
 exports.decreaseQuantity = async (req, res) => {
@@ -90,10 +107,10 @@ exports.decreaseQuantity = async (req, res) => {
   if (itemIndex > -1 && cart.products[itemIndex].quantity > 0) {
     let productItem = cart;
     productItem.products[itemIndex].quantity -= 1;
-    productItem.products[itemIndex].total = Number(productItem.products[itemIndex].total) - Number(cart.products[itemIndex].productprice) ;
-    productItem.subtotal =Number( productItem.subtotal) - Number(cart.products[itemIndex].productprice);
+    productItem.products[itemIndex].total = Number(productItem.products[itemIndex].total) - Number(cart.products[itemIndex].productprice);
+    productItem.subtotal = Number(productItem.subtotal) - Number(cart.products[itemIndex].productprice);
     cart = productItem;
-    
+
     cart = await cart.save();
     return res.status(200).send({ status: true, updatedCart: cart });
   }
@@ -126,8 +143,8 @@ exports.increaseQuantity = async (req, res) => {
   if (itemIndex > -1) {
     let productItem = cart;
     productItem.products[itemIndex].quantity += 1;
-    productItem.products[itemIndex].total = Number(productItem.products[itemIndex].total) + Number(cart.products[itemIndex].productprice) ;
-    productItem.subtotal =Number( productItem.subtotal) + Number(cart.products[itemIndex].productprice);
+    productItem.products[itemIndex].total = Number(productItem.products[itemIndex].total) + Number(cart.products[itemIndex].productprice);
+    productItem.subtotal = Number(productItem.subtotal) + Number(cart.products[itemIndex].productprice);
     cart = productItem;
     cart = await cart.save();
     return res.status(200).send({ status: true, updatedCart: cart });
@@ -140,27 +157,46 @@ exports.increaseQuantity = async (req, res) => {
     .send({ status: false, message: "Item does not exist in cart" });
 };
 exports.removeItem = async (req, res) => {
-  let userId = req.params.userId;
-  let user = await User.exists({ _id: userId });
-  let productId = req.body.productId;
-  console.log("product id is",req.body.productId);
-
-  if (!userId || !isValidObjectId(userId) || !user)
-    return res.status(400).send({ status: false, message: "Invalid user ID" });
-
-  let cart = await Cart.findOne({ userId: userId });
-  if (!cart)
-    return res
-      .status(404)
-      .send({ status: false, message: "Cart not found for this user" });
-
-  let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-  if (itemIndex > -1) {
-    cart.products.splice(itemIndex, 1);
-    cart = await cart.save();
-    return res.status(200).send({ status: true, updatedCart: cart });
+  const verifyed = auth.verifyToken(req.headers.authorization);
+  if (verifyed == undefined || verifyed == null || verifyed == "") {
+    return res.status(401).json({ error: "unatherized" })
   }
-  res
-    .status(400)
-    .send({ status: false, message: "Item does not exist in cart" });
+  else {
+    let userId = req.params.userId;
+    let user = await User.exists({ _id: userId });
+    let productId = req.body.productId;
+    console.log("product id is", req.body.productId);
+
+    if (!userId || !isValidObjectId(userId) || !user)
+      return res.status(400).send({ status: false, message: "Invalid user ID" });
+
+    let cart = await Cart.findOne({ userId: userId });
+
+    if (!cart)
+      return res
+        .status(404)
+        .send({ status: false, message: "Cart not found for this user" });
+    console.log("length is ..................................", cart.products.length);
+    // if (cart.products.length == 1) {
+
+    //   let cartitem = cart;
+    //   cartitem = cart.subtotal = 0;
+    //   cart = cartitem;
+    //   cart = await cart.save();
+    //   if (cart) { return res.status(400).json({ error: "found some issue when performing operation" }) }
+    // }
+
+    let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+    if (itemIndex > -1) {
+      cart.products.splice(itemIndex, 1);
+      if (cart.products.length == 1) {
+        cart.subtotal = 0;
+      }
+      cart = await cart.save();
+      return res.status(200).send({ status: true, updatedCart: cart });
+    }
+    res
+      .status(400)
+      .send({ status: false, message: "Item does not exist in cart" });
+  }
 };

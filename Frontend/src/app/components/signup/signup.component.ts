@@ -27,7 +27,6 @@ export class SignupComponent implements OnInit {
 submit(user : users){
  
   this.appservice.registerUser(user).subscribe(res =>{
-    console.log(res);
     if(res){
       this.router.navigateByUrl('login');
     }

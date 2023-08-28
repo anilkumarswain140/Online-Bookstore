@@ -5,7 +5,8 @@
         </mat-card-header>
         <mat-card-content *ngIf="cartItems">
             <div class="cart-container">
-                <div style="padding: 13px;  display: flex; justify-content: center;" *ngFor="let item of cartItems">
+                <div style="padding: 13px;  display: flex; justify-content: center;height: 35rem"
+                    *ngFor="let item of cartItems">
                     <mat-card style="margin-top:5px; width: 300px;">
                         <mat-card-header>
                             <mat-card-title>
@@ -19,9 +20,11 @@
                                     <input type="button" value="+" class="button-plus" data-field="quantity"
                                         (click)="increaseItemFromCart(item.productId)">
                                 </div>
-                                <p>Total : {{item.total}}</p>
-                                <p> Price : {{item.productprice}}</p>
-                                <p>{{item.producttitle | slice: 0:20}}</p>
+                                <div class="calculation-section">
+                                    <p>Total : {{item.total}}</p>
+                                    <p> Price : {{item.productprice}}</p>
+                                    <p>{{item.producttitle | slice: 0:20}}</p>
+                                </div>
                             </mat-card-title>
                         </mat-card-header>
                         <mat-card-content>
@@ -29,18 +32,18 @@
                             <p>
                                 <!-- {{item.description}} -->
                             </p>
-                            <img style="height:100%; width: 100%;" [src]="item.productimage" />
-
-
-                        </mat-card-content>
-                        <mat-card-actions class="buttons">
-
-                            <button mat-button class="buy-item"> Buy Product</button>
+                            <img style="height:63%; width: 100%;" [src]="item.productimage" />
                             <button (click)="removeCartItem(item.productId)"
                                 class="remove-item"><mat-icon>restore_from_trash</mat-icon></button>
-                        </mat-card-actions>
+
+                        </mat-card-content>
                     </mat-card>
                 </div>
+                <p></p>
+                <p></p>
+
+                <p *ngIf="cartItems.length > 0"><span class="subtotal">SubTotal</span><span class="subtotal-price">-/{{appstate.subtotal}}</span></p>
+                <button mat-button class="buy-item" *ngIf="cartItems.length > 0" (click)="placeOrder()">Place order</button>
             </div>
         </mat-card-content>
         <h3 *ngIf="cartItems.length == 0">cart is empty</h3>

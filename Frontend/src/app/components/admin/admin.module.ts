@@ -15,6 +15,7 @@ import { AddbookComponent } from './addbook/addbook.component';
 import { EditbookComponent } from './editbook/editbook.component';
 import { DeletebookComponent } from './deletebook/deletebook.component';
 import { ViewbooksComponent } from './viewbooks/viewbooks.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ViewbooksComponent } from './viewbooks/viewbooks.component';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatTabsModule,
+    MatCardModule
   ]
 })
 export class AdminModule { }

@@ -1,33 +1,41 @@
-.cart-container{
-    margin-top: 10%;
-}
-.remove-item{
-    margin-left: 1rem;
-    background-color: red;
-    margin-left: 1rem;
-    background-color: #d9290c;
-    color: white;
-}
-.buy-item{
-    padding: 7px;
-    background: black;
-    color: white;
+.cart-container {
+  margin-top: 10%;
 }
 
-.container{
-    margin-top: 14%;
-    display: flex;
-    justify-content: center;
-  }
-  .card-example{
-    width: 211px;
-  }
+.remove-item {
+  margin-left: 1rem;
+  background-color: red;
+  margin-left: 1rem;
+  background-color: #d9290c;
+  color: white;
+}
 
-  .buttons{
-    margin-top: 1rem;
-  }
+.buy-item {
+  padding: 7px;
+  /* background: black; */
+  /* color: white; */
+  /* display: flex; */
+  margin-left: 71%;
+  cursor: pointer;
+  background-color: #3f51b5;
+  color: #FFFFFF;
+}
 
-  input,
+.container {
+  margin-top: 14%;
+  display: flex;
+  justify-content: center;
+}
+
+.card-example {
+  width: 211px;
+}
+
+.buttons {
+  margin-top: 1rem;
+}
+
+input,
 textarea {
   border: 1px solid #eeeeee;
   box-sizing: border-box;
@@ -87,4 +95,21 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
   -webkit-appearance: none;
+}
+
+.calculation-section {
+  font-size: 18px;
+  font-family: 'georgia';
+  font-weight: bold;
+  text-align: left;
+}
+
+.subtotal {
+  font-size: 27px;
+  margin-right: 1rem;
+}
+
+.subtotal-price {
+  font-size: 19px;
+  font-weight: lighter;
 }

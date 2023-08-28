@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class EditbookComponent {
 updateCustomerForm: any;
+orderHistoryContent = true;
 constructor(private formBuilder: FormBuilder,){
   this.updateCustomerForm = this.formBuilder.group({
     id: [""],

@@ -34,8 +34,10 @@ export class DashboardComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.appstate);
-
+    this.store.dispatch(new GetAllBooks(0));
+    if (this.appstate.role == "admin") {
+      this.router.navigate(["/admindashboard"]);
+    }
   }
 
   preventClosing($event: any) {
@@ -44,7 +46,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ratingSelected(value : any){
-    console.log("hdhdhdh");
     
     this.rating = value;
     this.filterBooks();
@@ -72,7 +73,7 @@ export class DashboardComponent implements OnInit {
     else  if(!this.min && !this.max && !this.category && this.rating){
       this.query = "min=100&max=20000&sort="+this.rating;
     }
-    console.log(this.query);
+
     this.store.dispatch(new filterBooks(this.query));
   }
 
@@ -81,7 +82,7 @@ export class DashboardComponent implements OnInit {
   }
 
   nextPage(pn:any){
-    this.store.dispatch(new GetAllBooks(pn));
+    this.store.dispatch(new GetAllBooks(pn-1));
     this.pagenumber = pn;
   }
 
@@ -93,8 +94,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goTProductDetailsPage(id: any){
-    // this.router.navigateByUrl('/productdetails/'+id)
-       console.log(id);
+
        
     this.store.dispatch(new findBookById(id));
 

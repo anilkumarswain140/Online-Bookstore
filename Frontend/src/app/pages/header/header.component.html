@@ -1,55 +1,9 @@
-<!-- <div class="eaton mat-typography" style="overflow-x:hidden;" fxFlexFill cdkScrollable>
-  <mat-toolbar color="primary" class="main-header mat-elevation-z4" [class.hidden]="toggleSearch">
-    <mat-toolbar-row style="padding: 0 5px;" >
-      <div style="padding:8px 0 0 10px; flex:1;">
-        <div class="mat-title" style="margin-bottom:2px;" routerLink="/dashboard">Online Book Store</div>
-      </div>
-      <button mat-icon-button (click)="openSearch()" *ngIf="appstate.isAutherized">
-        <mat-icon>search</mat-icon>
-      </button>
-
-      <button mat-icon-button (click)="getAllCartItems()" class="cart-btn" *ngIf="appstate.isAutherized"><mat-icon>add_shopping_cart</mat-icon></button>
-      <button mat-icon-button [matMenuTriggerFor]="menu"  aria-label="Example icon-button with a menu" *ngIf="appstate.isAutherized">
-        <mat-icon>person_pin</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item routerLink="/profile">
-          <mat-icon>verified_user</mat-icon>
-          <span>Profile</span>
-        </button>
-        <button mat-menu-item >
-          <mat-icon>subject</mat-icon>
-          <span>Your order</span>
-        </button>
-        <button mat-menu-item (click)="logout()" >
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  
-
-  <mat-toolbar class="search-block mat-elevation-z4" [class.active]="toggleSearch">
-    <mat-toolbar-row style="padding: 0 5px;">
-      <button class="search-icon" mat-icon-button disabled>
-        <mat-icon>search</mat-icon>
-      </button>
-      <input class="search-control" type="text" placeholder="Search" (input)="onQueryPass()" [(ngModel)]="searchText"
-        #searchbar />
-      <button mat-icon-button (click)="searchClose()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</div> -->
-
 <div class="app mat-typography">
-	<div class="sidenav" [ngClass]="{'open': isOpen}">
-		<app-sidebar (closeEmitter)="closeEmitterHandler()"></app-sidebar>
-	</div>
-	<main>
-		<mat-toolbar color="primary" class="mat-elevation-z2">
+  <div class="sidenav" [ngClass]="{'open': isOpen}">
+    <app-sidebar (closeEmitter)="closeEmitterHandler()"></app-sidebar>
+  </div>
+  <main>
+    <mat-toolbar color="primary" class="mat-elevation-z2">
 
       <div class="brand">
         Book store app
@@ -59,29 +13,26 @@
         <div (click)="openSearch()" class="navbar-link" *ngIf="appstate.isAutherized">
           <mat-icon>search</mat-icon>
         </div>
-        <a 
-          *ngFor="let link of links"
-          class="navbar-link"
-          [routerLink]="[link.path]">
-         <mat-icon>{{link.icon}}</mat-icon>
+        <a *ngFor="let link of links" class="navbar-link" [routerLink]="[link.path]" >
+          <mat-icon *ngIf="appstate.isAutherized">{{link.icon}}</mat-icon>
         </a>
-        <div (click)="getAllCartItems()" class="navbar-link">
+        <div (click)="getAllCartItems()" class="navbar-link" *ngIf="appstate.role !== 'admin' && appstate.isAutherized">
           <mat-icon>add_shopping_cart</mat-icon>
         </div>
 
-        <div (click)="logout()" class="navbar-link">
+        <div (click)="logout()" class="navbar-link" *ngIf="appstate.isAutherized">
           <mat-icon>logout</mat-icon>
         </div>
 
 
       </div>
 
-      
-        <div (click)="toggleMenu()" style="cursor: pointer;" class="toggleMenu">
-          <mat-icon>menu</mat-icon>
-        </div>
-     
-		</mat-toolbar>
+
+      <div (click)="toggleMenu()" style="cursor: pointer;" class="toggleMenu">
+        <mat-icon>menu</mat-icon>
+      </div>
+
+    </mat-toolbar>
     <mat-toolbar class="search-block mat-elevation-z4" [class.active]="toggleSearch">
       <mat-toolbar-row style="padding: 0 5px;">
         <button class="search-icon" mat-icon-button disabled>
@@ -94,11 +45,9 @@
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
-		<section class="container-fluid">
-			<router-outlet></router-outlet>
-		</section>
-    
-	</main>
+    <section class="container-fluid">
+      <router-outlet></router-outlet>
+    </section>
+
+  </main>
 </div>
-
-

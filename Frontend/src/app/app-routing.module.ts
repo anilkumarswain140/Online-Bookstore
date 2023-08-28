@@ -47,6 +47,11 @@ const routes: Routes = [
     path : "profile",
     loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path : "placeorder",
+    loadChildren: () => import('./components/order/order.module').then(m => m.OrderModule),
+    canActivate: [AuthGuard]
   }
 
 ];

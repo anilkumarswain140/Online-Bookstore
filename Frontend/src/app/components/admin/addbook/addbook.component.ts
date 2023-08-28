@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngxs/store';
+import { addBook } from 'src/app/store/actions/app.actions';
 
 @Component({
   selector: 'app-addbook',
@@ -7,17 +9,19 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./addbook.component.css']
 })
 export class AddbookComponent {
-createbookForm: any;
-constructor(private formBuilder: FormBuilder,){
-  this.createbookForm = formBuilder.group({
-    id: [0],
-    name: ["", Validators.required],
-    phone: [""],
-    email: ["", Validators.email],
-    age : ["", [Validators.min(0), Validators.max(100), Validators.pattern('^[0-9]*')]],
-    address: []
-  });
-}
+  createbookForm: any;
+  constructor(private formBuilder: FormBuilder, private store: Store) {
+    this.createbookForm = formBuilder.group({
+      title: ["", Validators.required],
+      authers: [[], Validators.required],
+      shortDescription: ["", Validators.required],
+      category: [[], [Validators.required]],
+      price: ["", Validators.required],
+      thumbnailUrl: ["", [Validators.required]],
+    });
+  }
 
-createBook(){}
+  createBook(body: any) {
+    this.store.dispatch(new addBook(body));
+  }
 }
