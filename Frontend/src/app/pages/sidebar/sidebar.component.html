@@ -8,6 +8,10 @@
     <li *ngFor="let link of links" routerLinkActive="active" (click)="navigateTo(link.path)" [routerLinkActiveOptions]="{exact: true}">
       <mat-icon>{{link.icon}}</mat-icon><a>{{link.name}}</a>
     </li>
+    <li (click)="getAllCartItems()" class="navbar-link">
+      <mat-icon>add_shopping_cart</mat-icon>
+      <span>Cart</span>
+    </li>
     <li>
       <mat-icon>
         exit_to_app

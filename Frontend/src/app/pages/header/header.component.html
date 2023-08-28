@@ -65,7 +65,10 @@
           [routerLink]="[link.path]">
          <mat-icon>{{link.icon}}</mat-icon>
         </a>
-        
+        <div (click)="getAllCartItems()" class="navbar-link">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </div>
+
         <div (click)="logout()" class="navbar-link">
           <mat-icon>logout</mat-icon>
         </div>

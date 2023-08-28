@@ -61,11 +61,6 @@ export class HeaderComponent {
     },
     
     {
-      path: 'cart',
-      name: 'cart',
-      icon: 'add_shopping_cart'
-    },
-    {
       path: 'profile',
       name: 'profile',
       icon: 'person_pin'

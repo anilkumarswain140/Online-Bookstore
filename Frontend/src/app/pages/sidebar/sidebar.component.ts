@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
+import { Store } from '@ngxs/store';
+import { getCartItems } from 'src/app/store/actions/app.actions';
+import { AppSelectors } from 'src/app/store/selectors/app.selectors';
+import { AppStateModel } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,11 +20,6 @@ export class SidebarComponent {
     },
     
     {
-      path: 'cart',
-      name: 'cart',
-      icon: 'add_shopping_cart'
-    },
-    {
       path: 'profile',
       name: 'profile',
       icon: 'person_pin'
@@ -27,8 +27,8 @@ export class SidebarComponent {
   ]
   public isOpen: boolean = false
   @Output() closeEmitter = new EventEmitter()
-
-  constructor(private router:Router) { }
+  @SelectSnapshot(AppSelectors.getAppState) appstate!: AppStateModel;
+  constructor(private router:Router, private store : Store) { }
 
   ngOnInit() {
   }
@@ -38,7 +38,9 @@ export class SidebarComponent {
     this.isOpen = false;
     
   }
-
+  getAllCartItems() {
+    this.store.dispatch(new getCartItems(this.appstate.userData[0].id))
+  }
   navigateTo(path:string){
     this.router.navigate([path])
     this.closeEventEmitter()
