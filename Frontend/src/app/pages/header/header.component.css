@@ -76,7 +76,7 @@ main{
 }
 
 mat-icon{
-  color: #fff;
+  /* color: #fff; */
   cursor: pointer;
 }
 
@@ -130,3 +130,6 @@ mat-toolbar .navbar-menu{
   }
 }
 
+.navbar-menu > a{
+  color: white;
+}

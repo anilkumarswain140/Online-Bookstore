@@ -8,4 +8,5 @@ export interface Cart{
         productimage : string;
         producttitle: string;
         rating : string;
+        productprice : number
 }

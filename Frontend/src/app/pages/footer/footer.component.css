@@ -52,5 +52,7 @@
     color: #f2c426;
   }
   .Main-image{
+    height: 4rem;
+    width: 5rem;
     /* border-radius: 37px 4px 31px 2px; */
   }

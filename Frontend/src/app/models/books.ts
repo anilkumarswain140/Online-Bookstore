@@ -5,7 +5,7 @@ export interface books{
     thumbnailUrl : string,
     category :string,
     rating : number,
-    review : string,
+    review : any,
     price : number,
     _id : string;
 }

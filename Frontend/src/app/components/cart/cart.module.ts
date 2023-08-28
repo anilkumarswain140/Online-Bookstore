@@ -6,6 +6,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { CartComponent } from './cart.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MatCardModule } from '@angular/material/card';
     CartRoutingModule,
     MatGridListModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule
     
   ]
 })

@@ -36,7 +36,7 @@
 
                 <hr>
                 <div class=" socialMediaFlex">
-                    <button style="width:50%" type="submit" mat-raised-button color="primary">Submit</button>
+                    <button style="width:50%" type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid">Submit</button>
                 </div>
                 <mat-label class="login-hint">
                     if you are a existing user please

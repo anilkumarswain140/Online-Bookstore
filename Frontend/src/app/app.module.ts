@@ -26,12 +26,13 @@ import { AppState } from './store/state/app.state';
 import { NgxsSelectSnapshotModule } from '@ngxs-labs/select-snapshot';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { logoutPlugin } from './store/app.state-utils';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AddDialogComponent } from './dialogs/add/add.dialog.component';
 import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component';
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AuthGuard } from './service/auth.guard';
 
 
 
@@ -50,6 +51,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AddDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent,
+
 
 
   ],
@@ -78,14 +80,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxsSelectSnapshotModule,
     NgxsRouterPluginModule.forRoot(),
     MatDialogModule
-    
+
   ],
   entryComponents: [
     AddDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent
   ],
-  providers: [Appservice, { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true }, { provide: NGXS_PLUGINS, useValue: logoutPlugin, multi: true }],
+  providers: [Appservice, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true }, { provide: NGXS_PLUGINS, useValue: logoutPlugin, multi: true }],
   bootstrap: [HomeComponent]
 })
 export class AppModule { }

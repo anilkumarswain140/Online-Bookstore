@@ -7,6 +7,7 @@ userSchema = new Schema( {
 	email: String,
 	username: String,
 	password: String,
+	role : String
 },{ collection: 'users' }),
 User = mongoose.model('User', userSchema);
 

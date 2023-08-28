@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SignupModule } from './components/signup/signup.module';
+import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
 
@@ -21,26 +22,31 @@ const routes: Routes = [
 
   {
     path : "dashboard",
-    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
 
   {
     path : "cart",
-    loadChildren: () => import('./components/cart/cart.module').then(m => m.CartModule)
+    loadChildren: () => import('./components/cart/cart.module').then(m => m.CartModule),
+    canActivate: [AuthGuard]
   },
 
   {
     path : "productdetails",
-    loadChildren: () => import('./components/product-details/product-details.module').then(m => m.ProductDetailsModule)
+    loadChildren: () => import('./components/product-details/product-details.module').then(m => m.ProductDetailsModule),
+    canActivate: [AuthGuard]
   },
 
   {
     path : "admindashboard",
-    loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard]
   },
   {
     path : "profile",
-    loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./components/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
   }
 
 ];

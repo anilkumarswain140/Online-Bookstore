@@ -40,7 +40,20 @@ export class GetAllBooks {
     constructor(public bookid: any){}
   }
   
+
+  export class setAuth{
+    static readonly type = '[App] set  a auth'
+    constructor(){}
+  } 
   
+  export class decreaseItemFromCart{
+    static readonly type = '[App] decrase item'
+    constructor(public userId: any,public body : any){}
+  } 
   
+  export class increaseItemFromCart{
+    static readonly type = '[App] increase item'
+    constructor(public userId: any,public body : any){}
+  } 
   
   

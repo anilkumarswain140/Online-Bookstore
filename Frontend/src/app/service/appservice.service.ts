@@ -44,20 +44,28 @@ export class Appservice {
   }
 
   addToCart(userId : string, body : any): Observable<any>{
-    return this.http.post(this.baseUrl+userId,body);
+    return this.http.post(this.baseUrl+"cart/"+userId,body);
   }
 
   getAllCartItems(userId : string) : Observable<any>{
-    return this.http.get(this.baseUrl+userId);
+    return this.http.get(this.baseUrl+"cart/"+userId);
   }
 
   removeCartItem(userId : string, body : any) : Observable<any>{
     console.log(userId, body);
     
-    return this.http.delete(this.baseUrl+userId,body);
+    return this.http.delete(this.baseUrl+"cart/"+userId,{body: body});
   }
 
   findBookById(bookId : any) : Observable<any>{
     return this.http.get(this.baseUrl+"books/"+bookId);
+  }
+
+  decreaseItemFromCart(userId: any , body : any) : Observable<any>{
+    return this.http.patch(this.baseUrl+"cart/deceasequantity/"+userId,body)
+  }
+
+  increaseItemFromCart(userId: any , body : any) : Observable<any>{
+    return this.http.patch(this.baseUrl+"cart/inceasequantity/"+userId,body)
   }
 }

@@ -4,7 +4,8 @@ const register = async (req, res, next) => {
     const user = await User.create({
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role
     });
     if(!user){return res.status(500).json({error:"unable to create a user"});}
     return res.status(200).json(user);
@@ -44,7 +45,7 @@ const getProfile = async (req, res, next) => {
             res.redirect('/');
         } else {
             console.log("found", user);
-            res.status(200).json({ "id": user._id, "username": user.username, "email": user.email })
+            res.status(200).json({ "id": user._id, "username": user.username, "email": user.email, "role" : user.role })
         }
 
     }

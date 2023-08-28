@@ -38,3 +38,9 @@
     padding-top: 6%;
     padding-bottom: 5%;
   }
+
+  .signup-hint{
+    display: flex;
+    justify-content: center;
+    padding: 9px;
+  }

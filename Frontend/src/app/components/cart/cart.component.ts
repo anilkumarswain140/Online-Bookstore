@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { Store } from '@ngxs/store';
 import { Cart } from 'src/app/models/Cart';
-import { getCartItems, removeCartItem } from 'src/app/store/actions/app.actions';
+import { decreaseItemFromCart, getCartItems, increaseItemFromCart, removeCartItem } from 'src/app/store/actions/app.actions';
 import { AppSelectors } from 'src/app/store/selectors/app.selectors';
 import { AppStateModel } from 'src/app/store/state/app.state';
 
@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.cartItems);
+    console.log(this.appstate);
     
   }
 
@@ -28,10 +28,24 @@ export class CartComponent implements OnInit {
    
     
     let body = {
-      "productId": productid
+      "productId": productid.trim()
    }
    console.log(body);
     this.store.dispatch(new removeCartItem(this.appstate.userData[0].id,body))
   }
   
+
+  decreaseItemFromCart(productid: any){
+    let body = {
+      "productId": productid
+   }
+    this.store.dispatch(new decreaseItemFromCart(this.appstate.userData[0].id,body))
+  }
+
+  increaseItemFromCart(productid: any){
+    let body = {
+      "productId": productid
+   }
+    this.store.dispatch(new increaseItemFromCart(this.appstate.userData[0].id,body))
+  }
 }

@@ -20,7 +20,8 @@ export const APP_DEFAULT_STATE: AppStateModel = {
   cartItems: [],
   isInitialGetMyLocation: false,
   addressData: [],
-  productsdetails: []
+  productsdetails: [],
+  role: ''
 }
 
 export function logoutPlugin(state: any, action: any, next: any): void {

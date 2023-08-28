@@ -13,26 +13,17 @@ export class SidebarComponent {
       name: 'Dashboard',
       icon: 'home'
     },
+    
     {
-      path: 'ships',
-      name: 'Ships',
-      icon: 'waves'
+      path: 'cart',
+      name: 'cart',
+      icon: 'add_shopping_cart'
     },
     {
-      path: 'tasks',
-      name: 'Tasks',
-      icon: 'view_list'
+      path: 'profile',
+      name: 'profile',
+      icon: 'person_pin'
     },
-    {
-      path: 'hosts',
-      name: 'Hosts',
-      icon: 'group'
-    },
-    {
-      path: 'expenses',
-      name: 'Expenses',
-      icon: 'monetization_on'
-    }
   ]
   public isOpen: boolean = false
   @Output() closeEmitter = new EventEmitter()

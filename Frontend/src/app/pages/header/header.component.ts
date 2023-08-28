@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { Store } from '@ngxs/store';
 import { Cart } from 'src/app/models/Cart';
-import { GetAllBooks, SearchBooks, getCartItems } from 'src/app/store/actions/app.actions';
+import { GetAllBooks, SearchBooks, getCartItems, setAuth } from 'src/app/store/actions/app.actions';
 import { AppSelectors } from 'src/app/store/selectors/app.selectors';
 import { AppStateModel } from 'src/app/store/state/app.state';
 
@@ -59,26 +59,17 @@ export class HeaderComponent {
       name: 'Dashboard',
       icon: 'home'
     },
+    
     {
-      path: 'ships',
-      name: 'Ships',
-      icon: 'waves'
+      path: 'cart',
+      name: 'cart',
+      icon: 'add_shopping_cart'
     },
     {
-      path: 'tasks',
-      name: 'Tasks',
-      icon: 'view_list'
+      path: 'profile',
+      name: 'profile',
+      icon: 'person_pin'
     },
-    {
-      path: 'hosts',
-      name: 'Hosts',
-      icon: 'group'
-    },
-    {
-      path: 'expenses',
-      name: 'Expenses',
-      icon: 'monetization_on'
-    }
   ]
 
 
@@ -92,7 +83,8 @@ export class HeaderComponent {
     this.isOpen = !this.isOpen
   }
 
-  onLogout(){
-    this.router.navigateByUrl('/auth')
+  logout(){
+   this.store.dispatch(new setAuth());
+    this.router.navigateByUrl('/login');
   }
 }

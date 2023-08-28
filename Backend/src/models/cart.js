@@ -24,7 +24,11 @@ const itemSchema = mongoose.Schema({
   rating: {
     type: String,
     default: '',
-  }
+  },
+  total: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const cartSchema = mongoose.Schema({
@@ -33,7 +37,7 @@ const cartSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  total: {
+  subtotal: {
     type: Number,
     default: 0,
   },

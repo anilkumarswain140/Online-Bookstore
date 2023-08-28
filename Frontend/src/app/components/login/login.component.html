@@ -27,8 +27,9 @@
 
                 <hr>
                 <div class=" socialMediaFlex">
-                    <button style="width:50%" type="submit" mat-raised-button color="primary">Submit</button>
+                    <button style="width:50%" type="submit" mat-raised-button color="primary" [disabled]="!registerForm.valid">Submit</button>
                 </div>
+                <span class="signup-hint">or register <a routerLink="/signup">  &nbsp;signup</a></span>
             </form>
         </mat-card>
     </div>

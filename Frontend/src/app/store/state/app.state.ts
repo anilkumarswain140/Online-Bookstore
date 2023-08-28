@@ -3,7 +3,7 @@ import { Action, State, StateContext, Store } from "@ngxs/store";
 import { books } from "src/app/models/books";
 import { APP_DEFAULT_STATE } from "../app.state-utils";
 import { Observable, catchError, throwError, tap } from "rxjs";
-import { GetAllBooks, SearchBooks, addToCart, filterBooks, findBookById, getCartItems, login, removeCartItem } from "../actions/app.actions";
+import { GetAllBooks, SearchBooks, addToCart, decreaseItemFromCart, filterBooks, findBookById, getCartItems, increaseItemFromCart, login, removeCartItem, setAuth } from "../actions/app.actions";
 import { Appservice } from "src/app/service/appservice.service";
 import { Navigate } from "@ngxs/router-plugin";
 import { users } from "src/app/models/users";
@@ -28,6 +28,7 @@ export interface AppStateModel {
   userData: users[];
   cartItems : Cart[];
   productsdetails : books[];
+  role: any;
 }
 
 @Injectable()
@@ -99,9 +100,11 @@ export class AppState {
     
     return this.appService.addToCart(userId, body).pipe(
       catchError((error) => {
+        alert(JSON.stringify(error.error.message));
         return throwError(error);
       }),
       tap((data) => {
+        alert("added to cart");
         return data;
       })
     );
@@ -111,6 +114,7 @@ export class AppState {
   getCartItems({ patchState ,dispatch}: StateContext<AppStateModel>, { userId }: any): Observable<any> {
     return this.appService.getAllCartItems(userId).pipe(
       catchError((error) => {
+        alert(JSON.stringify(error.error.message));
         return throwError(error);
       }),
       tap((data) => {
@@ -118,7 +122,7 @@ export class AppState {
         console.log(data);
         
         data?.cart?.products?.map((r: any) => {
-          cartItem.push({ productId: r.productId, producttitle : r.producttitle, quantity: r.quantity, id: r._id, total: data.cart.total, productimage : r.productimage , rating : r.rating});
+          cartItem.push({ productId: r.productId, producttitle : r.producttitle, quantity: r.quantity, id: r._id, total: r.total, productimage : r.productimage , rating : r.rating, productprice : r.productprice});
         })
         patchState({
           cartItems: cartItem
@@ -137,11 +141,20 @@ export class AppState {
     
     return this.appService.removeCartItem(userId, body).pipe(
       catchError((error) => {
+        alert(JSON.stringify(error.error.message));
         return throwError(error);
       }),
       tap((data) => {
+        let cartItem: Cart[] = [];
         console.log(data);
-        return data;
+        
+        data?.updatedCart?.products?.map((r: any) => {
+          cartItem.push({ productId: r.productId, producttitle : r.producttitle, quantity: r.quantity, id: r._id, total: r.total, productimage : r.productimage , rating : r.rating, productprice : r.productprice});
+        })
+        patchState({
+          cartItems: cartItem
+        })
+        alert("removed")
       })
     );
   }
@@ -151,6 +164,7 @@ export class AppState {
 
     return this.appService.login(body).pipe(
       catchError((error) => {
+        alert(JSON.stringify("email or password is wrong try again"));
         return throwError(error);
       }),
       tap((data) => {
@@ -159,19 +173,28 @@ export class AppState {
         localStorage.setItem('token',data.token);
         usersData.push({ username: data.user.username, email: data.user.email, id: data.user._id, token: data.token });
         patchState({
-          userData: usersData
+          userData: usersData,
+          isAutherized : true,
+          role : data.user.role
         })
-        dispatch(new Navigate(['dashboard']));
+        if(data.user.role == 'admin'){
+          dispatch(new Navigate(['admindashboard']));
+        }
+        else{
+          dispatch(new Navigate(['dashboard']));
+        }
+          
       })
     );
   }
 
   @Action(findBookById)
   findBookById({ patchState ,dispatch}: StateContext<AppStateModel>, { bookid }: any): Observable<any> {
-console.log(bookid);
 
     return this.appService.findBookById(bookid).pipe(
       catchError((error) => {
+        alert(JSON.stringify(error.error.message));
+
         return throwError(error);
       }),
       tap((data) => {
@@ -186,5 +209,62 @@ console.log(bookid);
       })
     );
   }
+  
+
+  @Action(setAuth)
+  setAuth({ patchState }: StateContext<AppStateModel>): any {
+
+    patchState({
+      isAutherized : false
+    })
+  }
+
+  @Action(decreaseItemFromCart)
+  decreaseItemFromCart({ patchState ,dispatch}: StateContext<AppStateModel>, { userId, body }: any): Observable<any> {
+    console.log(body);
+    
+    return this.appService.decreaseItemFromCart(userId, body).pipe(
+      catchError((error) => {
+        alert(JSON.stringify(error.error.message));
+        return throwError(error);
+      }),
+      tap((data) => {
+        let cartItem: Cart[] = [];
+        console.log(data);
+        
+        data?.updatedCart?.products?.map((r: any) => {
+          cartItem.push({ productId: r.productId, producttitle : r.producttitle, quantity: r.quantity, id: r._id, total: r.total, productimage : r.productimage , rating : r.rating, productprice : r.productprice});
+        })
+        patchState({
+          cartItems: cartItem
+        })
+      })
+    );
+  }
+
+  @Action(increaseItemFromCart)
+  increaseItemFromCart({ patchState ,dispatch}: StateContext<AppStateModel>, { userId, body }: any): Observable<any> {
+    console.log(body);
+    
+    return this.appService.increaseItemFromCart(userId, body).pipe(
+      catchError((error) => {
+        alert(JSON.stringify(error.error.message));
+        return throwError(error);
+      }),
+      tap((data) => {
+        let cartItem: Cart[] = [];
+        console.log(data);
+        
+        data?.updatedCart?.products?.map((r: any) => {
+          cartItem.push({ productId: r.productId, producttitle : r.producttitle, quantity: r.quantity, id: r._id, total: r.total, productimage : r.productimage , rating : r.rating, productprice : r.productprice});
+        })
+        patchState({
+          cartItems: cartItem
+        })
+      })
+    );
+  }
 }
+
+
 
