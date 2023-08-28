@@ -23,10 +23,10 @@ exports.addItemToCart = async (req, res) => {
       return res.status(400).send({ status: false, message: "Invalid product" });
 
     let cart = await Cart.findOne({ userId: userId });
-    if(!cart){return res.status(400).send({tatus: false, message: "cart not found"})}
+    // if (!cart) { return res.status(400).send({ tatus: false, message: "cart not found" }) }
     let _id = { _id: new mongoose.Types.ObjectId(req.body.productId) };
     const doc = await Book.findById(_id);
-    if(!doc){return res.status(400).send({tatus: false, message: "product not found"})}
+    if (!doc) { return res.status(400).send({ tatus: false, message: "product not found" }) }
 
     console.log("product details", doc);
     body = {
