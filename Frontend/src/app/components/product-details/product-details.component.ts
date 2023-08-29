@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
-import { NgxsOnInit, Store } from '@ngxs/store';
-import { Cart } from 'src/app/models/Cart';
+import { Store } from '@ngxs/store';
 import { books } from 'src/app/models/books';
-import { findBookById } from 'src/app/store/actions/app.actions';
+import { StarRatingColor } from 'src/app/shared/input-stars/input-stars.component';
 import { AppSelectors } from 'src/app/store/selectors/app.selectors';
-import { StarRatingColor } from './input-stars/input-stars.component';
+
 
 @Component({
   selector: 'app-product-details',

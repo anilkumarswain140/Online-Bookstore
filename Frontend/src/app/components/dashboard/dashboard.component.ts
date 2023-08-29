@@ -7,6 +7,7 @@ import { SelectSnapshot } from '@ngxs-labs/select-snapshot';
 import { GetAllBooks, addToCart, filterBooks, findBookById } from 'src/app/store/actions/app.actions';
 import { AppStateModel } from 'src/app/store/state/app.state';
 import { Router } from '@angular/router';
+import { StarRatingColor } from 'src/app/shared/input-stars/input-stars.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,10 @@ export class DashboardComponent implements OnInit {
   category: any;
   rating: any;
   pagenumber = 1;
+  starCount:number = 5;
+  starColor:StarRatingColor = StarRatingColor.accent;
+  starColorP:StarRatingColor = StarRatingColor.primary;
+  starColorW:StarRatingColor = StarRatingColor.warn;
   toggleGridColumns() {
     this.gridColumns = this.gridColumns === 3 ? 4 : 3;
   }

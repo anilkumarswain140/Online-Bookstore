@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProductDetailsRoutingModule } from './product-details-routing.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ProductDetailsComponent } from './product-details.component';
-import { InputStarsComponent } from './input-stars/input-stars.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [ProductDetailsComponent, InputStarsComponent],
+  declarations: [ProductDetailsComponent],
   imports: [
     CommonModule,
     ProductDetailsRoutingModule,
@@ -20,7 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SharedModule
   ]
 })
 export class ProductDetailsModule { }

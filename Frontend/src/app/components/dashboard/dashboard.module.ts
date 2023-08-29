@@ -12,10 +12,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { InputStarsComponent } from 'src/app/shared/input-stars/input-stars.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatMenuModule,
     MatDialogModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SharedModule
     
   ]
 })

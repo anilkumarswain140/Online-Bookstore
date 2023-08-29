@@ -33,6 +33,7 @@ import { DeleteDialogComponent } from './dialogs/delete/delete.dialog.component'
 import { EditDialogComponent } from './dialogs/edit/edit.dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthGuard } from './service/auth.guard';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -51,7 +52,6 @@ import { AuthGuard } from './service/auth.guard';
     AddDialogComponent,
     EditDialogComponent,
     DeleteDialogComponent,
-
 
 
   ],
@@ -79,13 +79,15 @@ import { AuthGuard } from './service/auth.guard';
     ]),
     NgxsSelectSnapshotModule,
     NgxsRouterPluginModule.forRoot(),
-    MatDialogModule
+    MatDialogModule,
+    SharedModule
 
   ],
   entryComponents: [
     AddDialogComponent,
     EditDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    
   ],
   providers: [Appservice, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true }, { provide: NGXS_PLUGINS, useValue: logoutPlugin, multi: true }],
   bootstrap: [HomeComponent]
