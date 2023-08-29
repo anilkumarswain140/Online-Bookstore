@@ -1,5 +1,6 @@
-
-<div><h2>Product Details</h2></div>
+<div>
+	<h2>Product Details</h2>
+</div>
 <div style="padding: 13px; margin-top: 5%;display: flex; justify-content: center;">
 	<mat-card style="margin-top:10px; width : 50%;">
 		<mat-card-header>
@@ -9,18 +10,28 @@
 					<span class="price-label">Price</span> :
 					<span class="price">-/{{bookdetails[0].price}}</span>
 				</p>
+				<ul class="authers">
+					<li>Authers:</li>
+					<li *ngFor="let item of bookdetails[0].authers;let last = last"> &nbsp; {{item}}<span
+							*ngIf="!last">,</span> </li>
+				</ul>
 				<h3>Description</h3>
 				{{bookdetails[0].shortDescription}}
 			</mat-card-subtitle>
 
 		</mat-card-header>
 		<mat-card-content>
-			<app-input-stars [rating]="bookdetails[0].rating"  [starCount]="starCount" [color]="starColor"></app-input-stars>
+			<app-input-stars [rating]="bookdetails[0].rating" [starCount]="starCount"
+				[color]="starColor"></app-input-stars>
 			<p></p>
 			<img style="height:65%; width: 100%;" [src]="bookdetails[0].thumbnailUrl" />
+			<ul class="reviews">
+				<li class="price">Users Review:</li>
+				<li *ngFor="let item of bookdetails[0].review;let last = last"> &nbsp; {{item}}
+			</ul>
 		</mat-card-content>
 	</mat-card>
-	
+
 	<!-- <mat-grid-list cols="1" rowHeight="fit" gutterSize="1px" [style.height]="'200px'">
 		<mat-grid-tile *ngFor="let item of reviews; let i=index">
 			<mat-card [style.width]="'100%'">

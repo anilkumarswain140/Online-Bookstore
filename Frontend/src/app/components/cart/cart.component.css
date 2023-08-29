@@ -100,7 +100,7 @@ input[type="number"] {
 .calculation-section {
   font-size: 18px;
   font-family: 'georgia';
-  font-weight: bold;
+  font-weight: 500;
   text-align: left;
 }
 

@@ -9,3 +9,14 @@
     font-weight: 600;
     font-size: 1rem;
 }
+.authers{
+    padding: 0;
+    /* margin: 0; */
+    list-style: none;
+    display: flex;
+}
+.reviews{
+    padding: 0;
+    /* margin: 0; */
+    list-style: none;
+}
